@@ -276,8 +276,9 @@ func (s *GenericScheduler) process() (bool, error) {
 		return true, nil
 	}
 
-	// Create follow up evals for any delayed reschedule eligible allocations
-	if len(s.followUpEvals) > 0 {
+	// Create follow up evals for any delayed reschedule eligible allocations, except in
+	// the case that this eval was already delayed
+	if len(s.followUpEvals) > 0 && !s.eval.WaitUntil.IsZero() {
 		for _, eval := range s.followUpEvals {
 			eval.PreviousEval = s.eval.ID
 			// TODO(preetha) this should be batching evals before inserting them
