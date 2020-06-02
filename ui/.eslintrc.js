@@ -24,7 +24,9 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 'error',
+    'ember/avoid-leaking-state-in-ember-objects': 'off',
+    // Issue to track fixing this: https://github.com/hashicorp/nomad/issues/8096
   },
   overrides: [
     // node files
